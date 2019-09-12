@@ -1,19 +1,8 @@
-# [:] Example Maven Project
+# [:] Using SourceClear via GitHub Actions
 
-An example maven project to demonstrate [srcclr](https://www.srcclr.com) scans.
-
-## Try me!
-
-```
-brew tap srcclr/srcclr
-brew install srcclr
-srcclr activate
-srcclr scan --url https://github.com/srcclr/example-java-maven
-```
-
-## With SourceClear's Maven Plugin
-```
-git clone https://github.com/srcclr/example-java-maven
-cd example-java-maven
-mvn clean compile com.srcclr:srcclr-maven-plugin:scan -DapiToken=<yourSourceClearToken>
-```
+1. We'll [do this](.github/actions/sourceclear/entrypoint.sh) via the [CI script](https://help.veracode.com/reader/hHHR3gv0wYc2WbCclECf_A/_p_RJqZHXQ4S5pkjSXCrzQ), the recommended way to run scans.
+1. [Define a container action](.github/actions/sourceclear), which makes it easy to set up a build environment for your project. You may have to customize the [Dockerfile](.github/actions/sourceclear/Dockerfile) to install build dependencies.
+1. [Declare the `SRCCLR_API_TOKEN` secret](.github/actions/sourceclear/action.yml). We'll use the name of the environment variable SourceClear expects for consistency.
+1. Go to `Settings` > `Secrets` and add a new secret with the same name.
+1. [Pass the secret](.github/workflows/main.yml) to the container as an environment variable.
+1. Enjoy!
